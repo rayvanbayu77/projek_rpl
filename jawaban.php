@@ -124,6 +124,12 @@ if (empty($_SESSION['login']))
           <?= $row['username_jwbn'] ?></b> |
           <?= $row['waktu_jwbn'] ?><br>
           <?= $row['isi_jwbn'] ?><br>
+          <?php
+          if ($_SESSION['id'] == $row['user_id'])
+          {?>
+          <a href="hapus_jawaban.php?id=<?= $row['id_jwbn']; ?>">Hapus</a>
+          <?php }?>
+          
         </p>
         <hr>
         <?php endwhile; ?>

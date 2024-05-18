@@ -105,7 +105,7 @@ if ($_SESSION['username'] != "Admin")
           <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?> " readonly>
           <b>Tulis Jawabanmu</b>
             <div class="mb-3">
-              <textarea name="isi_jwbn" class="form-control" value="<?php echo $isi_jwbn; ?>" required></textarea>
+            <textarea name="isi_jwbn" placeholder="Ketikannya tolong diperhatikan yaaa" class="form-control" value="<?php echo $isi_jwbn; ?>" required></textarea>
             </div>
             <div class="mb-3">
               <input type="submit" class="btn btn-primary float-end" value="Jawab" name="submit_jwbn">
@@ -126,7 +126,7 @@ if ($_SESSION['username'] != "Admin")
           <?= $row['username_jwbn'] ?></b> |
           <?= $row['waktu_jwbn'] ?><br>
           <?= $row['isi_jwbn'] ?><br>
-          <a href="hapus_jawaban.php?id=<?= $row['id_jwbn']; ?>">Hapus</a>
+          <a href="hapus_jawaban_admin.php?id=<?= $row['id_jwbn']; ?>">Hapus</a>
         </p>
         <hr>
         <?php endwhile; ?>

@@ -46,7 +46,6 @@ if (empty($_SESSION['login']))
     <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white  border-bottom shadow-sm">
     <a style="color: black; text-decoration: none;" class="h5 my-0 me-md-auto fw-normal">iVEls</a>
       <nav class="my-2 my-md-0 me-md-3">
-        <input type="text" name="Cari" placeholder="Cari...">
       <a class="w-5 h-5 btn btn-sm btn-primary" type="submit" href="users.php">Users</a>
       <a class="w-5 h-5 btn btn-sm btn-primary" type="submit" href="pernyataan.php">Nyatakan</a>
       <a class="w-5 h-5 btn btn-sm btn-danger" type="submit" href="logout.php">Log Out</a>
