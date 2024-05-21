@@ -14,7 +14,6 @@ if (empty($_SESSION['login']))
     <meta charset="utf-8">
     
     <title>iVEls</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/pricing/">
     <link href="css/pricing.css" rel="stylesheet" >
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet" >

@@ -91,9 +91,9 @@ if (isset($_POST['submit_prtyn'])) {
             <input type="radio" name="kategori" value="Python">Python <br>
             <input type="radio" name="kategori" value="PHP">PHP <br>
             <input type="radio" name="kategori" value="Java">Java <br>
-            <input type="radio" name="kategori" value="Java">C++ <br>
-            <input type="radio" name="kategori" value="Java">MySQL <br>
-            <input type="radio" name="kategori" value="Java">Other <br><br>
+            <input type="radio" name="kategori" value="C++">C++ <br>
+            <input type="radio" name="kategori" value="MySQL">MySQL <br>
+            <input type="radio" name="kategori" value="Other">Other <br><br>
             <div class="mb-3">
             <button name="submit_prtyn" class="w-20 btn btn-md btn-primary"  type="submit" >Buat Pertanyaan</button>
             </div>
