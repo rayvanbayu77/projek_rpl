@@ -14,3 +14,4 @@
               echo $row['isi_pernyataan'];
             }
             ?>
+

@@ -15,10 +15,9 @@ $sql = $conn->query("SELECT * FROM users WHERE id = $id") or die(mysqli_error($c
 $editSql = $sql->fetch_assoc();
 
 if(isset($_POST['submit_edit'])) {
-	$password = md5($_POST['password']);
 	$email =$_POST['email'];
 
-	$sql = $conn->query("UPDATE users SET password = '$password', email = '$email' WHERE id = $id") or die(mysqli_error($conn));
+	$sql = $conn->query("UPDATE users SET email = '$email' WHERE id = $id") or die(mysqli_error($conn));
 	if($sql) {
 		echo "
         <script>alert('Profile diupdate! Silahkan login kembali :)');
@@ -84,12 +83,7 @@ if(isset($_POST['submit_edit'])) {
           <hr>
           
           <form action="" method="POST" >
-            
-            <br>
-            <p class="h5 my-0 me-md-auto fw-normal">Password</p>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Masukkan password baru" name="password" value="">
-            </div>
+          
             <br>
             <p class="h5 my-0 me-md-auto fw-normal">Email</p>
             <div class="input-group">

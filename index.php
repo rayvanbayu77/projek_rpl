@@ -8,6 +8,7 @@ if (empty($_SESSION['login']))
 	header("Location: login.php"); //untuk cek status login user, apabila belum maka akan diarahkan ke laman login
 ?> 
 
+
 <!Doctype html>
 <html lang="en">
   <head>
@@ -51,7 +52,15 @@ if (empty($_SESSION['login']))
      <div class="row">
         <div class="colo-lg-12">
           <h4>Selamat Datang,
-          <?php echo $_SESSION['username']; ?></a>!
+          <?php
+
+          include 'class.php';
+
+          $objek = new pengguna();
+          $objek->user();
+
+
+          ?>!
           </h4>
           <div class="mb-3">
         </div>
