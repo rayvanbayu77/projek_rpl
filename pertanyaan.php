@@ -1,6 +1,6 @@
 <?php 
 
-session_start();
+/*session_start();
 
 include 'config.php';
 
@@ -31,6 +31,60 @@ if (isset($_POST['submit_prtyn'])) {
         }
     }
 }
+*/
+session_start();
+
+include 'config.php';
+
+if (empty($_SESSION['login']))
+    header("Location: login.php");
+
+if (isset($_POST['submit_prtyn'])) {
+    $isi_prtyn = $_POST['isi_prtyn'];
+    $username_prtyn = $_POST['username_prtyn'];
+    $id_user = $_POST['id_user'];
+    $kategori = $_POST['kategori'];
+
+    // Cek apakah pertanyaan sudah pernah dibuat
+    $sql = "SELECT * FROM pertanyaan WHERE isi_prtyn='$isi_prtyn'";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result->num_rows > 0) {
+        // Handle upload gambar opsional
+        $gambar = null;
+
+        if (!empty($_FILES['gambar']['name'])) {
+            $gambar_folder = 'uploads/';
+            if (!is_dir($gambar_folder)) {
+                mkdir($gambar_folder, 0777, true);
+            }
+
+            $gambar_name = uniqid() . "_" . basename($_FILES['gambar']['name']);
+            $gambar_path = $gambar_folder . $gambar_name;
+
+            if (move_uploaded_file($_FILES['gambar']['tmp_name'], $gambar_path)) {
+                $gambar = $gambar_name;
+            }
+        }
+
+        // Simpan pertanyaan ke database dengan atau tanpa gambar
+        $sql_insert = "INSERT INTO pertanyaan (isi_prtyn, username_prtyn, id_user, kategori, gambar)
+            VALUES ('$isi_prtyn', '$username_prtyn', '$id_user', '$kategori', " . ($gambar ? "'$gambar'" : "NULL") . ")";
+
+        $result_insert = mysqli_query($conn, $sql_insert);
+
+        if ($result_insert) {
+            // Reset input
+            $isi_prtyn = "";
+            $username_prtyn = "";
+            $id_user = "";
+            $kategori = "";
+            echo "<script>alert('Pertanyaan berhasil dibuat'); document.location.href = 'index.php';</script>";
+        } else {
+            echo "<script>alert('Terjadi kesalahan saat menyimpan.')</script>";
+        }
+    }
+}
 
 //tanda '@' line 67 buat exception bug error undevined variable, php gaje
 
@@ -58,7 +112,7 @@ if (isset($_POST['submit_prtyn'])) {
 
   <body>
    <div class="container">
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
           <p class="greets">Tulis Pertanyaan</p><hr>
           <input type="hidden" name="username_prtyn" value="<?php echo $_SESSION['username']; ?> " readonly>
           <input type="hidden" name="id_user" value="<?php echo $_SESSION['id']; ?> " readonly>
@@ -76,6 +130,12 @@ if (isset($_POST['submit_prtyn'])) {
             <input type="radio" name="kategori" value="Lainnya">Lainnya <br><br>
             <div class="mb-3">
             <button name="submit_prtyn" class="btn-resp" type="submit" >Buat Pertanyaan</button>
+            </div>
+
+            <div class="mb-3">
+              <label for="gambar" class="form-label fw-bold">Unggah Gambar <span class="text-muted">(opsional)</span>:</label>
+              <input class="form-control" type="file" id="gambar" name="gambar" accept="image/*">
+            <img id="preview-gambar" src="#" alt="Preview" style="display:none; max-height: 200px; margin-top: 10px;">
             </div>
           </form>
    </div>

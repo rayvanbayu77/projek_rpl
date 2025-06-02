@@ -66,27 +66,56 @@ if (empty($_SESSION['login']))
         <?php endwhile; ?>
        </div>
      </div>
-          <?php
-             $query = "SELECT * FROM pertanyaan ORDER BY id_prtyn DESC"; //mengambil data pertanyaan dari database dari urutan paling baru
-             $result = mysqli_query($conn, $query);
-             while(
-               $row = mysqli_fetch_assoc($result)) :?>
-          <div class="qst-list">
-          <p>
-          <b><?= $row['username_prtyn'] ?></b> |
-          <?= $row['waktu_prtyn'] ?><br>
-          <b>Kategori : </b><?= $row['kategori'] ?><br>
-          <?= $row['isi_prtyn'] ?><br>
-          <a class="btn-resp" href="jawaban.php?id=<?= $row['id_prtyn']; ?>">Diskusi</a>  
-          <?php
-          if ($_SESSION['id'] == $row['id_user']) //fitur hapus hanya dapat dihapus oleh pembuat pertanyaan
-          {?>
-          <a class="btn-del" href="hapus.php?id=<?= $row['id_prtyn']; ?>">Hapus</a>
-          <?php }?>
-          </div>
-        </p>
-        <hr>
-        <?php endwhile; ?>
-   </main>
-  </body>
+     <form method="GET" action="" style="margin-bottom: 20px;">
+  <label for="kategori"><strong>Kategori Pertanyaan :</strong></label>
+  <select name="kategori" id="kategori" onchange="this.form.submit()" style="margin-left: 10px;">
+    <option value="">-- Semua Kategori --</option>
+    <?php
+    $kategori_opsi = ['Musik', 'Film', 'Fashion', 'Pembelajaran', 'Travel', 'Lainnya'];
+    $kategori_terpilih = isset($_GET['kategori']) ? $_GET['kategori'] : '';
+
+    foreach ($kategori_opsi as $kategori) {
+        $selected = ($kategori_terpilih == $kategori) ? 'selected' : '';
+        echo "<option value='$kategori' $selected>$kategori</option>";
+    }
+    ?>
+  </select>
+</form>
+
+      <?php
+// Menentukan query berdasarkan filter
+        if (isset($_GET['kategori']) && $_GET['kategori'] != '') {
+          $kategori = mysqli_real_escape_string($conn, $_GET['kategori']);
+          $query = "SELECT * FROM pertanyaan WHERE kategori = '$kategori' ORDER BY id_prtyn DESC";
+        } else {
+        $query = "SELECT * FROM pertanyaan ORDER BY id_prtyn DESC";
+        }
+
+// Jalankan query yang sudah ditentukan
+$result = mysqli_query($conn, $query);
+?>
+<?php while($row = mysqli_fetch_assoc($result)) : ?>
+  <div class="qst-list">
+    <p>
+      <b><?= $row['username_prtyn'] ?></b> |
+      <?= $row['waktu_prtyn'] ?><br>
+      <b>Kategori : </b><?= $row['kategori'] ?><br>
+      <?= $row['isi_prtyn'] ?><br>
+
+      <?php if (!empty($row['gambar'])) : ?>
+        <img src="uploads/<?= $row['gambar'] ?>" alt="Gambar Pertanyaan" style="max-width: 300px; margin-top: 10px;"><br>
+      <?php endif; ?>
+
+      <a class="btn-resp" href="jawaban.php?id=<?= $row['id_prtyn']; ?>">Diskusi</a>  
+
+      <?php if ($_SESSION['id'] == $row['id_user']) : ?>
+        <a class="btn-del" href="hapus.php?id=<?= $row['id_prtyn']; ?>">Hapus</a>
+      <?php endif; ?>
+      
+    </p>
+  </div>
+  <hr>
+<?php endwhile; ?>
+</main>
+</body>
 </html>
