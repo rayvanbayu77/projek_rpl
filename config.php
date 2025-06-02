@@ -4,7 +4,7 @@
 $server = "localhost";
 $user = "root";
 $pass = "";
-$database = "ray_db";
+$database = "ruangbicara";
  
 $conn = mysqli_connect($server, $user, $pass, $database);
  

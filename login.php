@@ -1,6 +1,6 @@
 <?php 
  
-include 'config.php'; // Cek koneksi ke config.php
+include 'config.php';
  
 error_reporting(0);
  
@@ -40,44 +40,37 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/pricing/">
-    <link href="css/pricing.css" rel="stylesheet" >
-    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet" >
- 
-    <title>Login iVEls</title>
+    <link href='https://fonts.googleapis.com/css?family=Figtree' rel='stylesheet'>
+    <link href="css/auth.css" rel="stylesheet" >
+    <title>Login RuangBicara</title>
 </head>
 <body>
+    
     <div role="alert">
         <?php echo $_SESSION['error']?>
     </div>
- 
-    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white  border-bottom shadow-sm">
-        <p class="h5 my-0 me-md-auto fw-normal">iVEls</p>
-    </header>
 
-    <div class="container">
-        <form action="" method="POST" class="login-email">
-        <div class="row">
-            <div class="colo-lg-12">
-            <h4>Login</h4>
-                <div class="mb-3">
-                </div>
+    <div class="register-box">
+        <form action="" method="POST">
+        <div class="register-header">
+            <img src="css/LogoFix.png" alt="">
             </div>
-        </div>
-        <hr style="margin:10px">
-            <div class="input-group mb-2">
-                <input type="email" class="form-control-sm" placeholder="Email" name="email" value="<?php echo $email; ?>" required>
+            <h4 style="color: #f7418f" class="register-title">Masuk <a  class="register-title-unactive" href="register.php">Register</a></h4>
+            <hr class="lining">
+            <div class="input-field">
+                <input type="email" placeholder="Email" name="email" value="<?php echo $email; ?>" required>
             </div>
-            <div class="input-group mb-2">
-                <input type="password" class="form-control-sm" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
+            <div class="input-field">
+                <input type="password" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
             </div>
             <div class="input-group">
-                <button name="submit" class="btn btn-primary float-start">Login</button>
+                <div><button name="submit" class="submit">Masuk</button>
+                </div>
             </div>
-            <p>Anda belum punya akun? <a href="register.php">Register</a></p>
         </form>
     </div>
-</body>
+    </body>
 </html>
