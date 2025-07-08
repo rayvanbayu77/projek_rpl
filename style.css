@@ -128,3 +128,8 @@ body {
 table, th, td {
     border: 1px solid black;
 }
+
+.kategori {
+    text-decoration: none;
+    color: pink;
+}

@@ -17,52 +17,31 @@ if (empty($_SESSION['login']))
   <head>
     <meta charset="utf-8">
     
-    <title>iVEls</title>
-
+    <title>ruangBicara</title>
+    <link href='https://fonts.googleapis.com/css?family=Figtree' rel='stylesheet'>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/pricing/">
-    <link href="css/pricing.css" rel="stylesheet" >
+    <link href="css/main.css" rel="stylesheet" >
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet" >
-    
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    <link href="css/pricing.css" rel="stylesheet">
   </head>
   <body>
 
-    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white  border-bottom shadow-sm">
-    <a style="color: black; text-decoration: none;" class="h5 my-0 me-md-auto fw-normal">iVEls</a>
-      <nav class="my-2 my-md-0 me-md-3">
-      <a class="w-5 h-5 btn btn-sm btn-primary" type="submit" href="users.php">Users</a>
-      <a class="w-5 h-5 btn btn-sm btn-primary" type="submit" href="pernyataan.php">Nyatakan</a>
-      <a class="w-5 h-5 btn btn-sm btn-danger" type="submit" href="logout.php">Log Out</a>
+  <header class="topnav">
+    <img src="css/LogoFix-sm.png" alt="">
+      <nav class="">
+      <a type="submit" class="btn-out" href="logout.php">Log Out</a>
+      <a type="submit" class="btn-main" href="pernyataan.php">Nyatakan</a>
+      <a type="submit" class="btn-main" href="users.php" >Users</a>
       </nav>
   </header>
 
    <main class="container">
      <div class="row">
-        <div class="colo-lg-12">
-          <h4>Selamat Datang, Admin</a>!
-          </h4>
-          <div class="mb-3">
-        </div>
+        <div class="greets">
+          <p>Selamat Datang, Admin</a>!
+          </p>
      </div>
-     <hr style="margin:10px">
-     <div class="row">
-       <div class="col-lg-12">
+     <div class="">
+       <div class="announce">
           <?php
               $query = "SELECT * FROM pernyataan";
               $result = mysqli_query($conn, $query);
@@ -72,37 +51,68 @@ if (empty($_SESSION['login']))
               ?>
               
 
-          <div style="background-color: #e7f3fe;border-top: 4px solid #2196F3;">
-            <p style="margin-left: 10px;">
-            <b>Pemberitahuan</b><br>
+            <div style="background-color:rgb(252, 252, 252);border-top: 4px solid #f7418f;border-radius: 3px;box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.1); width: 1320px; height: 135px;">
+            <p style="margin-left: 10px;margin-top: 10px;">
+            <b>Pemberitahuan !</b><br>
             <b>Admin</b> |
             <?= $row['waktu_pernyataan'] ?><br>
-            <?= $row['isi_pernyataan'] ?><br>
-            <a href="hapus_pernyataan.php?id=<?= $row['id_pernyataan']; ?>">Hapus</a>
+            <?= $row['isi_pernyataan'] ?>
+            <br>
+            <a class="btn-del" href="hapus_pernyataan.php?id=<?= $row['id_pernyataan']; ?>">Hapus</a>
             </div>
-            <hr>
+            
+            </p>
             <?php endwhile; ?>
-        </p>
-       </div>
+       <hr>
+      </div>
      </div>
-     <div class="row">
-       <div class="col-lg-12">
-          <?php
-             $query = "SELECT * FROM pertanyaan ORDER BY id_prtyn DESC"; //mengambil data pertanyaan dari database dari urutan paling baru
-             $result = mysqli_query($conn, $query);
-             while(
-               $row = mysqli_fetch_assoc($result)) :?>
-               
-          <b><?= $row['username_prtyn'] ?></b> |
-          <?= $row['waktu_prtyn'] ?><br>
-          <b>Kategori : </b><?= $row['kategori'] ?><br>
-          <?= $row['isi_prtyn'] ?><br>
-          <a href="jawabanAdmin.php?id=<?= $row['id_prtyn']; ?>">Diskusi</a>  <a>|</a>
-          <a href="hapus_pertanyaan.php?id=<?= $row['id_prtyn']; ?>">Hapus</a>
-          <hr>
-          
-        </p>
-        <?php endwhile; ?>
+     <form method="GET" action="" style="margin-bottom: 20px;">
+  <label for="kategori"><strong>Kategori Pertanyaan :</strong></label>
+  <select name="kategori" id="kategori" onchange="this.form.submit()" style="margin-left: 10px;">
+    <option value="">-- Semua Kategori --</option>
+    <?php
+    $kategori_opsi = ['Musik', 'Film', 'Fashion', 'Pembelajaran', 'Travel', 'Lainnya'];
+    $kategori_terpilih = isset($_GET['kategori']) ? $_GET['kategori'] : '';
+
+    foreach ($kategori_opsi as $kategori) {
+        $selected = ($kategori_terpilih == $kategori) ? 'selected' : '';
+        echo "<option value='$kategori' $selected>$kategori</option>";
+    }
+    ?>
+  </select>
+</form>
+
+      <?php
+// Menentukan query berdasarkan filter
+        if (isset($_GET['kategori']) && $_GET['kategori'] != '') {
+          $kategori = mysqli_real_escape_string($conn, $_GET['kategori']);
+          $query = "SELECT * FROM pertanyaan WHERE kategori = '$kategori' ORDER BY id_prtyn DESC";
+        } else {
+        $query = "SELECT * FROM pertanyaan ORDER BY id_prtyn DESC";
+        }
+
+// Jalankan query yang sudah ditentukan
+$result = mysqli_query($conn, $query);
+?>
+<?php while($row = mysqli_fetch_assoc($result)) : ?>
+  <div class="qst-list">
+    <p>
+      <b><?= $row['username_prtyn'] ?></b> |
+      <?= $row['waktu_prtyn'] ?><br>
+      <b>Kategori : </b><?= $row['kategori'] ?><br>
+      <?= $row['isi_prtyn'] ?><br>
+
+      <?php if (!empty($row['gambar'])) : ?>
+        <img src="uploads/<?= $row['gambar'] ?>" alt="Gambar Pertanyaan" style="max-width: 300px; margin-top: 10px;"><br>
+      <?php endif; ?>
+
+      <a class="btn-resp" href="jawaban.php?id=<?= $row['id_prtyn']; ?>">Diskusi</a>  
+      <a class="btn-del" href="hapus.php?id=<?= $row['id_prtyn']; ?>">Hapus</a>
+      
+    </p>
+  </div>
+  <hr>
+<?php endwhile; ?>
        </div>
      </div>
    </main>

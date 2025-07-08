@@ -1,0 +1,137 @@
+*{  margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Figtree';
+}
+
+body{
+    background-color: #fcf9f9;
+}
+
+.topnav {
+    background-image: linear-gradient(to right, #f7418f , #fc819e) ;
+    overflow: hidden;
+}
+      
+.topnav img {
+    float: left;
+    width: 9%;
+    height: 9%;
+    padding-left: 10px;
+    margin-left: 82px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.btn-main{
+    float: right;
+    margin-top: 6px;
+    margin-right: 16px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 4px;
+    height: 28px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    background-color: #fff3c7;
+    border-radius: 3px;
+    font-size: 14px;
+    box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-out{
+    float: right;
+    margin-top: 6px;
+    margin-right: 70px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 4px;
+    height: 28px;
+    color: rgb(246, 246, 246);
+    text-align: center;
+    text-decoration: none;
+    background-color: #f7418f;
+    border-radius: 3px;
+    font-size: 14px;
+    box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-main:hover {
+    background-color: #f7418f;
+    color: rgb(246, 246, 246);
+}
+
+.btn-out:hover {
+    background-color: #fff3c7;
+    color: black;
+}
+
+.greets {
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    color :black;
+}
+
+.qst-list {
+    margin-left: 10px;
+    background-color: rgb(252, 252, 252);
+    border-radius: 3px;
+    box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-resp {
+    float: left;
+    margin-top: 6px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 4px;
+    height: 28px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    background-color: #fff3c7;
+    border-color: #fff3c7;
+    border-radius: 3px;
+    font-size: 14px;
+    box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-resp:hover {
+    background-color: #f7418f;
+    color: rgb(246, 246, 246);
+}
+
+.btn-del {
+    float: left;
+    margin-top: 6px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 4px;
+    height: 28px;
+    color: rgb(246, 246, 246);
+    text-align: center;
+    text-decoration: none;
+    background-color: #f7418f;
+    border-radius: 3px;
+    font-size: 14px;
+    box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-del:hover {
+    background-color: #fff3c7;
+    color: black;
+}
+
+.sub-title{
+    padding-bottom: 40px;
+}
+
+.spacing{
+    padding-top: 20px;
+}
